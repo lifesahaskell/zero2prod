@@ -32,9 +32,8 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
 
     let environment_filename = format!("{}.yaml", environment.as_str());
     let settings = config::Config::builder()
-        .add_source(config::File::new(
-            "configuration.yaml",
-            config::FileFormat::Yaml,
+        .add_source(config::File::from(
+            configuration_directory.join("base.yaml")
         ))
         .add_source(config::File::from(
             configuration_directory.join(environment_filename),
@@ -64,7 +63,7 @@ impl TryFrom<String> for Environment {
     fn try_from(s: String) -> Result<Self, Self::Error> {
         match s.to_lowercase().as_str() {
             "local" => Ok(Self::Local),
-            "productions" => Ok(Self::Production),
+            "production" => Ok(Self::Production),
             other => Err(format!(
                 "{} is not a supported environment. \
                 Use either `local` or `production`.",
