@@ -14,7 +14,7 @@ path = "src/main.rs"
 
 
 [dependencies]
-validator = {version = "0.16.1"}
+validator = {version = "0.20", features = ["derive"]}
 claims = "0.8.0"
 unicode-segmentation = "1.12.0"
 serde-aux = "4.6.0"
